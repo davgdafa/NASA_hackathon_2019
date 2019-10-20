@@ -98,4 +98,11 @@ public class DataController {
         }
         return arrayNode;
     }
+    
+    @GetMapping("/test")
+    public String test() {
+        System.out.println(ClassWithoutNameKt
+                .isThereFireInThisRegion("/Users/122386/Downloads/DL_FIRE_M6_81349",  25.6643619F, -81.3646979F));
+        return "";
+    }
 }
