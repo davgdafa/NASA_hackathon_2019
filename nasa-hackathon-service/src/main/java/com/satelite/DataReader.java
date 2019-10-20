@@ -16,8 +16,7 @@ public class DataReader {
     public static List<Data> getData() {
         List<Data> dataList = new ArrayList<>();
         try {
-            String fileLocation = "/Users/122386/Documents/FIRMS/viirs/USA_contiguous_and_Hawaii";
-            //String fileLocation = "/Users/122386/Downloads/DL_FIRE_V1_81350";
+            String fileLocation = "/Path/To/FIRMS/viirs/USA_contiguous_and_Hawaii";
             File folder = new File(fileLocation);
             
             String[] files = folder.list();

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -70,39 +69,17 @@ public class DataController {
         List<Data> filteredList = stream.collect(Collectors.toList());
         
         filteredList.forEach(data -> {
-            try {
-                log.info(OBJECT_MAPPER.writeValueAsString(data));
-            } catch (Exception e) {
-                log.error("error", e);
-            }
             arrayNode.add(OBJECT_MAPPER.valueToTree(data));
         });
         
-        return arrayNode;
-    }
-    
-    @GetMapping(value = "/files")
-    public JsonNode readFiles() {
-        ArrayNode arrayNode = OBJECT_MAPPER.createArrayNode();
-        try {
-            File folder = new File("/Users/122386/Documents/FIRMS/viirs/USA_contiguous_and_Hawaii");
-            
-            String[] files = folder.list();
-            
-            for (String file : files) {
-                System.out.println(file);
-                arrayNode.add(file);
-            }
-        } catch (Exception e) {
-            log.error("error", e);
-        }
+        // call SmsNotification.sendMessage("phone number", "message"); as you see fit.
         return arrayNode;
     }
     
     @GetMapping("/test")
     public String test() {
         System.out.println(ClassWithoutNameKt
-                .isThereFireInThisRegion("/Users/122386/Downloads/DL_FIRE_M6_81349",  25.6643619F, -81.3646979F));
+                .isThereFireInThisRegion("/Path/to/data/DL_FIRE_M6_81349", 25.6643619F, -81.3646979F));
         return "";
     }
 }
