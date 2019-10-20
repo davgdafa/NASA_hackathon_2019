@@ -1,0 +1,27 @@
+<assembly>
+
+  <id>docker-bundle</id>
+
+  <formats>
+    <format>zip</format>
+  </formats>
+
+  <fileSets>
+
+    <fileSet>
+      <outputDirectory/>
+      <directory>src/main/docker</directory>
+      <fileMode>0755</fileMode>
+    </fileSet>
+
+    <fileSet>
+      <outputDirectory/>
+      <directory>${project.build.directory}</directory>
+      <includes>
+        <include>${project.build.finalName}.jar</include>
+      </includes>
+    </fileSet>
+
+  </fileSets>
+
+</assembly>

@@ -69,6 +69,39 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<!-- docker -->
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${maven.docker.plugin.version}</version>
+				<configuration>
+					<logStdout>true</logStdout>
+					<useColor>true</useColor>
+					<images>
+						<image>
+							<name>${project.artifactId}</name>
+							<build>
+								<dockerFile>Dockerfile</dockerFile>
+								<tags>
+									<tag>${project.version}</tag>
+								</tags>
+								<assembly>
+									<mode>dir</mode>
+									<descriptor>docker-bundle.xml</descriptor>
+								</assembly>
+							</build>
+						</image>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<id>container-build</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
