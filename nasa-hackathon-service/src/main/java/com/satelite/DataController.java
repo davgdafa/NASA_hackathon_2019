@@ -33,13 +33,22 @@ public class DataController {
     
     @GetMapping(value = "/read")
     public JsonNode readData(@RequestParam(required = false) String fromDateTime,
-                             @RequestParam(required = false) String toDateTime) {
+                             @RequestParam(required = false) String toDateTime,
+                             @RequestParam Double nwLatitude,
+                             @RequestParam Double nwLongitude,
+                             @RequestParam Double seLatitude,
+                             @RequestParam Double seLongitude) {
         ArrayNode arrayNode = OBJECT_MAPPER.createArrayNode();
         List<Data> dataList = DataReader.getData();
         
-        List<Data> filteredList;
+        Stream<Data> stream = dataList
+                .stream()
+                .filter(data -> data.getLatitude() < nwLatitude
+                        && data.getLatitude() > seLatitude
+                        && data.getLongitude() < seLongitude
+                        && data.getLongitude() > nwLongitude);
+        
         if (fromDateTime != null || toDateTime != null) {
-            Stream<Data> stream = dataList.stream();
             
             if (fromDateTime != null) {
                 stream = stream.filter(data -> {
@@ -56,12 +65,9 @@ public class DataController {
                     return (converted.isAfter(convertedData) || converted.isEqual(convertedData));
                 });
             }
-            
-            filteredList = stream.collect(Collectors.toList());
-            
-        } else {
-            filteredList = dataList;
         }
+        
+        List<Data> filteredList = stream.collect(Collectors.toList());
         
         filteredList.forEach(data -> {
             try {

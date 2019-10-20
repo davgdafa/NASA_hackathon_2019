@@ -17,10 +17,10 @@ public class DataReader {
         List<Data> dataList = new ArrayList<>();
         try {
             String fileLocation = "/Users/122386/Documents/FIRMS/viirs/USA_contiguous_and_Hawaii";
+            //String fileLocation = "/Users/122386/Downloads/DL_FIRE_V1_81350";
             File folder = new File(fileLocation);
             
             String[] files = folder.list();
-            
             for (String file : files) {
                 BufferedReader br = new BufferedReader(new FileReader(fileLocation + "/" + file));
                 
